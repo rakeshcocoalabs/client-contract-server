@@ -1,6 +1,6 @@
 const express = require('express')
 const mongoose = require('mongoose')
-const url = 'mongodb://localhost:27017/node-boilerplate'
+const url = 'mongodb://143.198.168.131:27017/node-boilerplate'
 
 const app = express()
 
