@@ -4,7 +4,9 @@ const Client = require('../models/clients')
 
 exports.add = async (req, res) => {
 
+    res.set('Access-Control-Allow-Origin', 'http://localhost:3000');
 
+    res.set('Access-Control-Allow-Methods', 'POST');
     const params = req.body;
  
     const client = new Client(params)
@@ -13,7 +15,8 @@ exports.add = async (req, res) => {
         const output = await client.save()
         res.json({
             success: true,
-            message:"added"
+            message:"added",
+            
         })
     } catch (err) {
         res.send({
@@ -49,13 +52,21 @@ exports.listProject = async (req, res) => {
 
     res.set('Access-Control-Allow-Origin', '*');
 
+
+
     var search = ""
 
-
+    var status = ""
 
     if (req.query  && req.query.search) {
 
         search = req.query.search.trim() 
+
+      
+    }
+    if (req.query  && req.query.status) {
+
+        status = req.query.status.trim() 
     }
     
 
@@ -72,11 +83,16 @@ exports.listProject = async (req, res) => {
 
             clientArr.push(client._id);
         }
+        
 
-        filter = {'clientId': {$in: clientArr}};
+        filter.clientId =  {$in: clientArr};
     }
 
-    const {page=1,perPage=10} = req.body;
+    if(status != ""){
+        filter.status = status;
+    }
+
+    const {page=1,perPage=10} = req.query;
  
     const pagination = {
         skip:((page-1) * perPage),
