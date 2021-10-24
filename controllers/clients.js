@@ -1,6 +1,7 @@
 
 const Project = require('../models/projects')
 const Client = require('../models/clients')
+const MileStone = require('../models/milestone')
 
 exports.add = async (req, res) => {
 
@@ -31,11 +32,42 @@ exports.addProject = async (req, res) => {
 
     
     const params = req.body;
+
+    //return res.send(params)
  
     const project = new Project(params)
 
     try {
         const output = await project.save()
+        res.json({
+            success: true,
+            message:"added",
+            output
+        })
+    } catch (err) {
+        res.send({
+            success: 0,
+            error: err.message
+        })
+    }
+}
+
+exports.addProjectMilestone = async (req, res) => {
+
+    
+    const params = req.body;
+
+    const id = req.params.id;
+
+    var obj = {
+        contractId:id,
+        estimate:params
+    }
+ 
+    const milestone = new MileStone(obj)
+
+    try {
+        const output = await milestone.save()
         res.json({
             success: true,
             message:"added"

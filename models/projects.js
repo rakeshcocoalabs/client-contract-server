@@ -50,11 +50,6 @@ const projectSchema = new mongoose.Schema({
         value:Number,
         filePath:String
     },
-    terms:[{
-        milestone:String,
-        percent:Number,
-        amount:Number
-    }],
     clientId:{ type: mongoose.Schema.Types.ObjectId, ref: 'Client' },
     status:String,
 })
