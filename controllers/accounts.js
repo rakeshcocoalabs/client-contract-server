@@ -91,10 +91,11 @@ exports.login = async (req, res) => {
             });
 
             if (matched) {
-                return res.send({ success: 1, message: "logged in" ,token})
+                setTimeout(function(){  return res.send({ success: 1, message: "logged in" ,token}) }, 3000);
+               
             }
             else {
-                return res.send({ success: 1, message: "wrong password" })
+                return res.send({ success: 0, message: "wrong password" })
             }
 
 

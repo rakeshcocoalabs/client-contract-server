@@ -20,8 +20,11 @@ app.use(cors({
 }));
 
 const clients = require('./routes/clients')
+const accounts = require('./routes/accounts')
+
 
 app.use('/clients',clients);
+app.use('/accounts',accounts);
 
 app.listen(3080, () => {
     console.log('Server started')

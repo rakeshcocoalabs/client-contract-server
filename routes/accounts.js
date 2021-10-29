@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const Alien = require('../models/alien')
+
 const controller = require('../controllers/accounts')
 const auth = require('../middleware/auth')
 var multer = require('multer');
