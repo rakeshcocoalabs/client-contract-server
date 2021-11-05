@@ -35,8 +35,10 @@ router.post('/add-project', upload.single('file'),controller.addProject)
 router.post('/add-project-milestone/:id', upload.single('file'),controller.addProjectMilestone)
 router.get('/list-project', controller.listProject)
 router.get('/list-clients', controller.listClients)
+router.get('/get-client/:name', controller.getClient)
 router.post('/add-invoice', controller.addInvoice)
-router.post('/add-invoice-line/:id', controller.addInvoiceLine)
+router.post('/add-invoice-line', controller.addInvoiceLine)
 router.post('/make-pdf', controller.makePdf)
+router.patch('/update-client/:id', controller.updateClient)
 
 module.exports = router

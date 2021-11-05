@@ -51,7 +51,11 @@ const projectSchema = new mongoose.Schema({
         filePath:String
     },
     clientId:{ type: mongoose.Schema.Types.ObjectId, ref: 'Client' },
-    status:String,
+    project:String,
+    status:{
+        type:String,
+        default:"active"
+    },
 })
 
 module.exports = mongoose.model('Project',projectSchema,'Projects')

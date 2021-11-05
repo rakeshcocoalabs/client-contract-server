@@ -10,7 +10,7 @@ const invoiceLineSchema = new mongoose.Schema({
         sac:String,
         contract:String,
     }],
-    InvoiceId: { type: mongoose.Schema.Types.ObjectId, ref: 'Invoice' },
+    invoiceId: String,
     
 
 })

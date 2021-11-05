@@ -26,6 +26,8 @@ const accounts = require('./routes/accounts')
 app.use('/clients',clients);
 app.use('/accounts',accounts);
 
-app.listen(3080, () => {
-    console.log('Server started')
+const port = process.env.port || 3080;
+
+app.listen(port, () => {
+    console.log(`started on ${port}`)
 })

@@ -91,7 +91,7 @@ exports.login = async (req, res) => {
             });
 
             if (matched) {
-                setTimeout(function(){  return res.send({ success: 1, message: "logged in" ,token}) }, 3000);
+                setTimeout(function(){  return res.send({ success: 1, message: "logged in" ,token}) }, 1);
                
             }
             else {
