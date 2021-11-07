@@ -173,7 +173,7 @@ exports.listProject = async (req, res) => {
     var filter = {};
 
     if (search != "") {
-        const clients = await Client.find({ contactName: { $regex: search, $options: "i" } }, { _id: 1 })
+        const clients = await Client.find({ name: { $regex: search, $options: "i" } }, { _id: 1 })
 
         var clientArr = [];
 
