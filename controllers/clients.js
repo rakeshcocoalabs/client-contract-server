@@ -55,7 +55,7 @@ exports.getClient = async (req, res) => {
 
         console.log(output)
 
-        const output1 = await Client.findOne({_id:output.clientId});
+        const output1 = await Client.findOne({name:name});
         return res.json({
             success: true,
             message: "added",
