@@ -234,6 +234,26 @@ exports.listClients = async (req, res) => {
     }
 }
 
+exports.listInvoices = async (req, res) => {
+
+    res.set('Access-Control-Allow-Origin', '*');
+
+    try {
+        const output = await Client.find({})
+        res.json({
+            success: true,
+            message: "listed",
+            output: output
+        })
+    } catch (err) {
+        res.send({
+            success: 0,
+            error: err.message
+        })
+    }
+}
+
+
 
 exports.addInvoice = async (req, res) => {
 
@@ -348,7 +368,7 @@ exports.makePdf = async (req, res) => {
             }
 
             const invoice= await Invoice.findOne({_id:req.body.id}).populate('clientId')
-            console.log("b",invoice,"l")
+           
             invNum = invoice.number;
 
             invDate = invoice.date;
@@ -395,7 +415,7 @@ exports.makePdf = async (req, res) => {
     const doc = new PDFDocument();
 
     const numberRand = (Math.floor(Math.random() * 90000) + 10000).toString();
-    const path = './files/' + numberRand;
+    const path = '/opt/files' + numberRand;
     // Saving the pdf file in root directory.
     doc.pipe(fs.createWriteStream(path));
 
