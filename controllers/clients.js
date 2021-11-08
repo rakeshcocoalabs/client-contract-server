@@ -334,10 +334,8 @@ exports.download = async (req, res) => {
     const fileName = "example"
 
     return res.download((directoryPath + fileName ,fileName,(err)=>{
-        console.log(err.message)
-    })
-
-    );
+        console.log("error occured",err.message)
+    }));
 }
 
 
