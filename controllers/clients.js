@@ -331,7 +331,7 @@ exports.download = async (req, res) => {
     let __basedir = __dirname
 
     const directoryPath = __basedir + "/files/";
-    const fileName = 'example.pdf'
+    const fileName = "example.pdf"
 
     return res.download((directoryPath + fileName ,fileName,(err)=>{
         console.log(err.message)
