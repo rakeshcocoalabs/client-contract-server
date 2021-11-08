@@ -330,7 +330,7 @@ exports.download = async (req, res) => {
 
     let __basedir = __dirname
 
-    const directoryPath = __basedir + "/files/example.pdf";
+    const directoryPath = "/root/client-contract-server/files/example.pdf"
   
 
     return res.download(directoryPath)
