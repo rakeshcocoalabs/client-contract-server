@@ -332,7 +332,7 @@ exports.download = async (req, res) => {
 
     const directoryPath = __basedir + "/files/example.pdf";
 
-    return res.download((directoryPath,example.pdf,(err)=>{
+    return res.download((directoryPath,'example.pdf',(err)=>{
         console.log(err.message)
     })
 
