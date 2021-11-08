@@ -43,23 +43,23 @@ exports.add = async (req, res) => {
 
 exports.getClient = async (req, res) => {
 
-    
+
     const name = req.params.name;
 
-    console.log("giii",name)
+    console.log("giii", name)
 
-   
+
 
     try {
-        const output = await Project.findOne({name:name});
+        const output = await Project.findOne({ name: name });
 
         console.log(output)
 
-        const output1 = await Client.findOne({name:name});
+        const output1 = await Client.findOne({ name: name });
         return res.json({
             success: true,
             message: "added",
-            output:output1
+            output: output1
 
         })
     } catch (err) {
@@ -101,18 +101,18 @@ exports.updateClient = async (req, res) => {
 
     const id = req.params.id;
 
-    try{
-            const result = await Client.updateOne({_id:id},params);
+    try {
+        const result = await Client.updateOne({ _id: id }, params);
 
-            return res.send({
-                success:true,
-                message:"updated"
-            })
-    }
-    catch(e){
         return res.send({
-            success:success,
-            message:e.message
+            success: true,
+            message: "updated"
+        })
+    }
+    catch (e) {
+        return res.send({
+            success: success,
+            message: e.message
         })
 
     }
@@ -326,6 +326,17 @@ exports.addInvoiceLine = async (req, res) => {
     }
 }
 
+exports.download = async (req, res) => {
+
+    const directoryPath = __basedir + "/files/example.pdf";
+
+    return res.download((directoryPath,example.pdf,(err)=>{
+        console.log(err.message)
+    })
+
+    );
+}
+
 
 
 exports.makePdf = async (req, res) => {
@@ -334,9 +345,9 @@ exports.makePdf = async (req, res) => {
     var tableOffset = 240
     var address = []
     var addressShip = []
-    var dateinFmt=""
-    var contactName =""
-    var phone=""
+    var dateinFmt = ""
+    var contactName = ""
+    var phone = ""
     var invNum = 0;
     var invDate = "";
     var address1 = ""; var address2 = ""; var address3 = ""
@@ -357,18 +368,18 @@ exports.makePdf = async (req, res) => {
         }
 
         var estimate = []
-        
+
 
         if (req.body.id) {
             const invoiceLine = await InvoiceLine.findOne({ invoiceId: req.body.id })
-            
-            if(invoiceLine.estimate){
-                 estimate = invoiceLine.estimate;
-                
+
+            if (invoiceLine.estimate) {
+                estimate = invoiceLine.estimate;
+
             }
 
-            const invoice= await Invoice.findOne({_id:req.body.id}).populate('clientId')
-           
+            const invoice = await Invoice.findOne({ _id: req.body.id }).populate('clientId')
+
             invNum = invoice.number;
 
             invDate = invoice.date;
@@ -377,24 +388,24 @@ exports.makePdf = async (req, res) => {
 
             var month = invDates[1];
 
-            
 
-            const months = ["Jan","Feb","Mar","APR","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
+
+            const months = ["Jan", "Feb", "Mar", "APR", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 
             let monthNum = months.indexOf(month)
 
-            let  day = invDates[2]
+            let day = invDates[2]
 
             let yr = invDates[3]
 
 
-             dateinFmt = day+"/"+monthNum.toString()+"/"+yr;
+            dateinFmt = day + "/" + monthNum.toString() + "/" + yr;
 
-             contactName = invoice.contactName;
+            contactName = invoice.contactName;
 
-            if(invoice.clientId && invoice.clientId.phone){
+            if (invoice.clientId && invoice.clientId.phone) {
 
-                 phone = invoice.clientId.phone
+                phone = invoice.clientId.phone
             }
 
 
@@ -444,13 +455,13 @@ exports.makePdf = async (req, res) => {
     doc.font('Helvetica').fontSize(9).text(address4, 100, 190);
     doc.font('Helvetica').fontSize(9).text(address5, 100, 200);
     doc.font('Helvetica').fontSize(9).text(address6, 100, 210);
-   
-    doc.fontSize(9).text('Invoice no: '+ invNum, 425, 130);
 
-    doc.fontSize(9).text('contact person: '+contactName, 425, 140);
+    doc.fontSize(9).text('Invoice no: ' + invNum, 425, 130);
 
-    doc.fontSize(9).text('Contact No:'+phone, 425, 150);
-    doc.font('Helvetica-Bold').fontSize(9).text("invloice date:"+dateinFmt, 425, 170);
+    doc.fontSize(9).text('contact person: ' + contactName, 425, 140);
+
+    doc.fontSize(9).text('Contact No:' + phone, 425, 150);
+    doc.font('Helvetica-Bold').fontSize(9).text("invloice date:" + dateinFmt, 425, 170);
 
 
 
@@ -487,28 +498,28 @@ exports.makePdf = async (req, res) => {
 
     doc.fontSize(9).text('_______________________________________________________________________________________', 100, tableOffset + 16);
 
-     console.log("pi",estimate.length,estimate)
+    console.log("pi", estimate.length, estimate)
 
-     var total = 0;
-     var totlaTax=0;
+    var total = 0;
+    var totlaTax = 0;
 
-    for (let x = 0;  x < estimate.length;x++) {
-       
+    for (let x = 0; x < estimate.length; x++) {
+
         let obect = estimate[x];
         let offset = tableOffset + 32 + (x * 12)
-        doc.fontSize(9).text((x+1).toString(), 100, offset);
+        doc.fontSize(9).text((x + 1).toString(), 100, offset);
         doc.fontSize(9).text(obect.description, 150, offset, 90, 20);
 
-        doc.fontSize(9).text(obect.sac, 250, offset );
-        doc.fontSize(9).text(obect.taxable, 290, offset );
+        doc.fontSize(9).text(obect.sac, 250, offset);
+        doc.fontSize(9).text(obect.taxable, 290, offset);
 
-        doc.fontSize(9).text('5', 370, offset );
+        doc.fontSize(9).text('5', 370, offset);
         let tax = obect.taxable * 0.05;
-        doc.fontSize(9).text(tax.toString(), 395, offset );
+        doc.fontSize(9).text(tax.toString(), 395, offset);
 
         total = total + parseInt(obect.taxable)
 
-        totlaTax=totlaTax+tax;
+        totlaTax = totlaTax + tax;
 
     }
 
@@ -516,17 +527,17 @@ exports.makePdf = async (req, res) => {
 
     doc.fontSize(9).text('_______________________________________________________________________________________', 100, 334);
 
-    
+
 
     doc.fontSize(9).text('Total', 150, 350);
     doc.fontSize(9).text(total.toString(), 290, 350);
     doc.fontSize(9).text(totlaTax.toString(), 380, 350);
 
     doc.fontSize(9).text('Total Invoicable value', 150, 370);
-    doc.fontSize(9).text((totlaTax+total).toString(), 380, 370);
+    doc.fontSize(9).text((totlaTax + total).toString(), 380, 370);
 
     doc.fontSize(9).text('Total Invoicable value in words', 150, 390);
-    doc.fontSize(9).text(inWords(totlaTax+total), 380, 390);
+    doc.fontSize(9).text(inWords(totlaTax + total), 380, 390);
 
     doc.fontSize(9).text('PAN:8952144', 100, 420);
     doc.fontSize(9).text('TAN:8952144', 100, 430);

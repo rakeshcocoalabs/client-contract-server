@@ -40,5 +40,6 @@ router.post('/add-invoice', controller.addInvoice)
 router.post('/add-invoice-line', controller.addInvoiceLine)
 router.post('/make-pdf', controller.makePdf)
 router.patch('/update-client/:id', controller.updateClient)
+router.get('/get-pdf', controller.download)
 
 module.exports = router
