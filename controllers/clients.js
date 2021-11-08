@@ -415,7 +415,7 @@ exports.makePdf = async (req, res) => {
     const doc = new PDFDocument();
 
     const numberRand = (Math.floor(Math.random() * 90000) + 10000).toString();
-    const path = '/opt/files' + numberRand;
+    const path = '/opt/files/x'// + numberRand;
     // Saving the pdf file in root directory.
     doc.pipe(fs.createWriteStream(path));
 
