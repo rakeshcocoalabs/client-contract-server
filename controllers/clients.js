@@ -328,6 +328,8 @@ exports.addInvoiceLine = async (req, res) => {
 
 exports.download = async (req, res) => {
 
+    let __basedir = __dirname
+
     const directoryPath = __basedir + "/files/example.pdf";
 
     return res.download((directoryPath,example.pdf,(err)=>{
