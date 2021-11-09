@@ -429,6 +429,10 @@ exports.makePdf = async (req, res) => {
     // Saving the pdf file in root directory.
     doc.pipe(fs.createWriteStream(path));
 
+    if(req.body && req.body.id){
+        let update = await Invoice.updateOne({_id:req.body.id},{path:path})
+    }
+
     // Adding functionality
 
 

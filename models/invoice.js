@@ -25,6 +25,7 @@ const invoiceSchema = new mongoose.Schema({
     },
     clientId:{ type: mongoose.Schema.Types.ObjectId, ref: 'Client' },
     status:String,
+    path:String
 })
 
 module.exports = mongoose.model('Invoice',invoiceSchema,'Invoices')
