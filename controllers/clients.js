@@ -239,7 +239,7 @@ exports.listInvoices = async (req, res) => {
     res.set('Access-Control-Allow-Origin', '*');
 
     try {
-        const output = await Client.find({})
+        const output = await Invoice.find({})
         res.json({
             success: true,
             message: "listed",
