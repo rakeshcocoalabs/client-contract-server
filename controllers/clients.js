@@ -276,7 +276,8 @@ exports.addInvoice = async (req, res) => {
         contactName: params.contactName,
         number: params.number,
         clientId: client._id,
-        date: params.date,
+        invoiceDate: params.date,
+        date:params.strDate,
         description:params.description
     }
 

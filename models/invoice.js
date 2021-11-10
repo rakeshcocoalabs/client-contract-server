@@ -27,6 +27,7 @@ const invoiceSchema = new mongoose.Schema({
     status:String,
     path:String,
     description:String,
+    invoiceDate:Number
 })
 
 module.exports = mongoose.model('Invoice',invoiceSchema,'Invoices')
