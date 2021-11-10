@@ -427,12 +427,12 @@ exports.makePdf = async (req, res) => {
     const doc = new PDFDocument();
 
     const numberRand = (Math.floor(Math.random() * 90000) + 10000).toString();
-    const path = 'http://143.198.168.131/' + numberRand;
+    const path = 'var/www/html/' + numberRand;
     // Saving the pdf file in root directory.
     doc.pipe(fs.createWriteStream(path));
 
     if(req.body && req.body.id){
-        let update = await Invoice.updateOne({_id:req.body.id},{path:path})
+        let update = await Invoice.updateOne({_id:req.body.id},{path:"http://143.198.168.131/"+numberRand})
     }
 
     // Adding functionality
