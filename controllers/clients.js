@@ -241,14 +241,14 @@ exports.listInvoices = async (req, res) => {
     var query = req.query;
 
     var filter = {};
-    if(query.T1 && query.T2){
+    if(query.t1 && query.t2){
         filter.invoiceDate = {$gt:T1,$lt:T2}
     }
     else {
-        if (query.T1){
+        if (query.t1){
             filter.invoiceDate = {$gt:T1}
         }
-        if (query.T2){
+        if (query.t2){
             filter.invoiceDate = {$lt:T2}
         }
     }
