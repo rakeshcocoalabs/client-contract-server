@@ -238,8 +238,25 @@ exports.listInvoices = async (req, res) => {
 
     res.set('Access-Control-Allow-Origin', '*');
 
+    var query = req.query;
+
+    var filter = {};
+    if(query.T1 && query.T2){
+        filter.invoiceDate = {$gt:T1,$lt:T2}
+    }
+    else {
+        if (query.T1){
+            filter.invoiceDate = {$gt:T1}
+        }
+        if (query.T2){
+            filter.invoiceDate = {$lt:T2}
+        }
+    }
+
+   
+
     try {
-        const output = await Invoice.find({})
+        const output = await Invoice.find(filter)
         res.json({
             success: true,
             message: "listed",
